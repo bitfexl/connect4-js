@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Connect 4</title>
+        <script src="connect4.js"></script>
+    </head>
+    <body>
+        <canvas id="connect4-board" width="700" height="600"></canvas>
+        <p onclick="doInit()" id="output"></p>
+        <script>
+            function doInit() {
+                let output = document.getElementById("output");
+
+                output.innerText = "";
+
+                initConnect4(document.getElementById("connect4-board"), (winner) => {
+                    output.innerText = (winner != 0 ? "Winner: " + (winner == 1 ? "Red" : "Yellow") : "Draw") + "! Klick to restart.";
+                });
+            }
+            doInit();
+        </script>
+    </body>
+</html>
