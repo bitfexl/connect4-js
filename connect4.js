@@ -13,8 +13,8 @@ function initConnect4(canvas, ongameend) {
     let currColor = 1;
 
     const onclick = (event) => {
-        const rowCount = 6;
-        const colCount = 7;
+        const rowCount = board.length;
+        const colCount = board[0].length;
         const width = canvas.width;
         const colWidth = width / colCount;
 
@@ -26,11 +26,12 @@ function initConnect4(canvas, ongameend) {
 
         if (row != -1) {
             board[row][col] = currColor;
+            drawBoard(canvas.getContext("2d"), board);
 
             let winner = checkWinner(board);
             if (winner != 0) {
-                ongameend(winner);
                 canvas.removeEventListener("click", onclick);
+                ongameend(winner);
             } else {
                 let gameEnded = true;
                 board.forEach((row) => {
@@ -39,12 +40,11 @@ function initConnect4(canvas, ongameend) {
                     }
                 });
                 if (gameEnded) {
-                    ongameend(0);
                     canvas.removeEventListener("click", onclick);
+                    ongameend(0);
                 }
             }
 
-            drawBoard(canvas.getContext("2d"), board);
             currColor = currColor == 1 ? 2 : 1;
         }
     };
@@ -103,9 +103,9 @@ function checkWinner(board) {
 }
 
 function drawBoard(ctx, board) {
-    const rowCount = 6;
-    const colCount = 7;
     const chipPadding = 5;
+    const rowCount = board.length;
+    const colCount = board[0].length;
 
     const width = ctx.canvas.width;
     const height = ctx.canvas.height;
@@ -121,7 +121,15 @@ function drawBoard(ctx, board) {
         for (let col = 0; col < colCount; col++) {
             ctx.beginPath();
             ctx.fillStyle = board[row][col] == 1 ? "red" : board[row][col] == 2 ? "yellow" : "white";
-            ctx.arc(chipWidth * col + chipWidth / 2, chipHeight * row + chipHeight / 2, chipWidth / 2 - chipPadding, 0, 2 * Math.PI);
+            ctx.ellipse(
+                chipWidth * col + chipWidth / 2, // x
+                chipHeight * row + chipHeight / 2, // y
+                chipWidth / 2 - chipPadding, // rx
+                chipHeight / 2 - chipPadding, // ry
+                0, // rotation
+                0, // start angle
+                2 * Math.PI // end angle
+            );
             ctx.fill();
         }
     }
