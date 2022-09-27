@@ -71,7 +71,7 @@ function checkWinner(board) {
             for (let add = 1; add < toWin; add++) {
                 // check row
                 let rowCheckCol = col + add;
-                if (rowCheckCol >= rowCount || board[row][rowCheckCol] != playerToCheck) {
+                if (rowCheckCol >= colCount || board[row][rowCheckCol] != playerToCheck) {
                     rowOk = false;
                 }
 
@@ -82,7 +82,7 @@ function checkWinner(board) {
                 }
 
                 // diagonal check (top left to bottom right)
-                if (rowCheckCol >= rowCount || colCheckRow >= rowCount || board[colCheckRow][rowCheckCol] != playerToCheck) {
+                if (rowCheckCol >= colCount || colCheckRow >= rowCount || board[colCheckRow][rowCheckCol] != playerToCheck) {
                     diagonalOk = false;
                 }
 
