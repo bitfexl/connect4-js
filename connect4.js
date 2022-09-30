@@ -17,8 +17,9 @@ function initConnect4(canvas, ongameend) {
         const colCount = board[0].length;
         const width = canvas.width;
         const colWidth = width / colCount;
+        const xOffset = event.clientX - canvas.getBoundingClientRect().left;
 
-        let col = parseInt(event.clientX / colWidth);
+        let col = parseInt(xOffset / colWidth);
 
         let row;
         for (row = 0; row < rowCount && board[row][col] == 0; row++);
